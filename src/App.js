@@ -1,25 +1,59 @@
-import logo from './logo.svg';
+import React, { Component } from "react";
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  state = {
+    counter: 0
+  };
+  mensagemNumMax = () => {
+    if (this.state.counter === 10) {
+      alert("Número máximo");
+    }
+  };
+  mensagemNumMin = () => {
+    if (this.state.counter === 0) {
+      alert("Número minimo");
+    }
+  };
+  add = () => {
+    if (this.state.counter < 10) {
+      this.setState(({ counter }) => {
+        return { counter: counter + 1 };
+      });
+    }
+    this.mensagemNumMax();
+  };
+  remove = () => {
+    if (this.state.counter > 0) {
+      this.setState(({ counter }) => {
+        return { counter: counter - 1 };
+      });
+    }
+    this.mensagemNumMin();
+  };
+  zerar = () => {
+    this.setState({
+      counter: 0
+    });
+    this.mensagemNumMin();
+  };
+  render() {
+    return (
+      <div className="counter">
+        <h1>Contador</h1>
+        <span className="counter__output">{this.state.counter}</span>
+        <div className="btn__container wrap">
+          <button className="button__somar hover__button" onClick={this.add}>
+            +
+          </button>
+          <button className="button__sub hover__button" onClick={this.remove}>
+            -
+          </button>
+          <button className="button__zerar hover__button" onClick={this.zerar}>
+            Zerar
+          </button>
+        </div>
+      </div>
+    );
+  }
 }
-
-export default App;
